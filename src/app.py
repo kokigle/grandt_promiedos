@@ -13,9 +13,8 @@ df.columns = ["Equipo", "Jugador", "Posición", "Link", "Minutos", "Goles", "Gol
 
 # Inicializar aplicación Dash
 server = flask.Flask(__name__)
-server = server.server
 app = dash.Dash(__name__, server=server)
-
+server = app.server
 # Estilos mejorados
 green_style = {
     'backgroundColor': '#1a7f3d',
