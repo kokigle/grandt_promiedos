@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output, State
 import flask
 
 # Cargar datos
-file_path = 'grandt_promiedos_final/GRANDT_FINAL.csv'
+file_path = 'GRANDT_FINAL.csv'
 df = pd.read_csv(file_path)
 
 # Asegurar que los nombres de columnas sean correctos
