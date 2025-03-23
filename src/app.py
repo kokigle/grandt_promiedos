@@ -5,15 +5,15 @@ from dash.dependencies import Input, Output, State
 import flask
 
 # Cargar datos
-file_path = 'GRANDT_FINAL.csv'
+file_path = 'grandt_promiedos_final/GRANDT_FINAL.csv'
 df = pd.read_csv(file_path)
 
 # Asegurar que los nombres de columnas sean correctos
 df.columns = ["Equipo", "Jugador", "Posición", "Link", "Minutos", "Goles", "Goles/90 Hist", "Minutos 2025", "Goles 2025", "Goles/90 2025"]
 
 # Inicializar aplicación Dash
-app = flask.Flask(__name__)
-server = app.server
+server = flask.Flask(__name__)
+server = server.server
 app = dash.Dash(__name__, server=server)
 
 # Estilos mejorados
