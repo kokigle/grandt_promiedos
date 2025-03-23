@@ -1,0 +1,1 @@
+"# grandt_promiedos"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/kokigle/grandt_promiedos.gitgit push -u origin main
