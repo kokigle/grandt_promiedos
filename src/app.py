@@ -5,7 +5,7 @@ import flask
 from dash.dependencies import Input, Output
 
 # Cargar datos
-file_path = 'GRANDT_FINAL.csv'
+file_path = 'src/GRANDT_FINAL.csv'
 df = pd.read_csv(file_path)
 
 # Convertir columnas numéricas
@@ -267,120 +267,114 @@ app.layout = html.Div([
     
     html.Div([
         dash_table.DataTable(
-            id='data-table',
-            columns=[
-                {'name': 'ID', 'id': 'ID'},
-                {'name': 'Jugador', 'id': 'NOMBRE_JUGADOR'},
-                {'name': 'Posición', 'id': 'POS'},
-                {'name': 'Equipo', 'id': 'EQUIPO'},
-                {'name': 'Min Hist', 'id': 'MINUTOS', 'type': 'numeric'},
-                {'name': 'Goles Hist', 'id': 'GOLES', 'type': 'numeric'},
-                {'name': 'G/90 Hist', 'id': 'GOLES/90 HIST', 'type': 'numeric', 'format': {'specifier': '.2f'}},
-                {'name': 'Min Ult3', 'id': 'MINUTOS ULT 3', 'type': 'numeric'},
-                {'name': 'Goles Ult3', 'id': 'GOLES ULT 3', 'type': 'numeric'},
-                {'name': 'G/90 Ult3', 'id': 'GOLES/90 ULT 3', 'type': 'numeric', 'format': {'specifier': '.2f'}},
-                {'name': 'Min 2025', 'id': 'MINUTOS 2025', 'type': 'numeric'},
-                {'name': 'Goles 2025', 'id': 'GOLES 2025', 'type': 'numeric'},
-                {'name': 'G/90 2025', 'id': 'GOLES/90 2025', 'type': 'numeric', 'format': {'specifier': '.2f'}}
-            ],
-            data=df.to_dict('records'),
-            filter_action='none',
-            sort_action='native',
-            sort_mode='multi',
-            page_action='native',
-            page_size=20,
-            style_header={
-                'backgroundColor': '#2c3e50',
-                'color': 'white',
-                'fontWeight': 'bold',
-                'fontFamily': 'Roboto, sans-serif',
-                'textAlign': 'center',
-                'border': 'none',
-                'padding': '10px',
-                'whiteSpace': 'normal',
-                'height': 'auto'
-            },
-            style_table={
-                'minWidth': '100%',
-                'overflowX': 'auto',
-                'borderRadius': '8px',
-                'boxShadow': '0 4px 12px rgba(0, 0, 0, 0.1)',
-                'border': '1px solid #e0e0e0',
-                'fontFamily': 'Roboto, sans-serif'
-            },
-            style_data={
-                'borderBottom': '1px solid #e0e0e0',
-                'textAlign': 'center',
-                'padding': '8px',
-                'whiteSpace': 'normal',
-                'height': 'auto'
-            },
-            style_data_conditional=[
-                # Colorear filas por posición
-                *[
-                    {
-                        'if': {'column_id': 'POS', 'filter_query': f'{{POS}} = "{pos}"'},
-                        'backgroundColor': color,
-                        'color': '#333333',
-                        'fontWeight': '500'
-                    } for pos, color in position_colors.items()
-                ],
-                # Colorear celdas de Goles/90
-                *[
-                    {
-                        'if': {'column_id': col, 'filter_query': f'{{{col}}} <= 0.1'},
-                        'backgroundColor': '#f0f9e8'
-                    } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
-                ],
-                *[
-                    {
-                        'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.1 && {{{col}}} <= 0.2'},
-                        'backgroundColor': '#ccebc5'
-                    } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
-                ],
-                *[
-                    {
-                        'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.2 && {{{col}}} <= 0.3'},
-                        'backgroundColor': '#a8ddb5'
-                    } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
-                ],
-                *[
-                    {
-                        'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.3 && {{{col}}} <= 0.5'},
-                        'backgroundColor': '#7bccc4'
-                    } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
-                ],
-                *[
-                    {
-                        'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.5 && {{{col}}} <= 0.7'},
-                        'backgroundColor': '#43a2ca'
-                    } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
-                ],
-                *[
-                    {
-                        'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.7'},
-                        'backgroundColor': '#0868ac',
-                        'color': 'white'
-                    } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
-                ]
-            ],
-            style_cell={
-                'minWidth': '60px',
-                'width': '80px',
-                'maxWidth': '150px',
-                'overflow': 'hidden',
-                'textOverflow': 'ellipsis',
-                'fontSize': '0.8rem'
-            },
-            style_as_list_view=True,
-            tooltip_data=[
-                {
-                    column: {'value': str(value), 'type': 'markdown'}
-                    for column, value in row.items()
-                } for row in df.to_dict('records')
-            ],
-            tooltip_duration=None,
-        )
+    id='data-table',
+    columns=[
+        {'name': 'ID', 'id': 'ID'},
+        {'name': 'Jugador', 'id': 'NOMBRE_JUGADOR'},
+        {'name': 'Posición', 'id': 'POS'},
+        {'name': 'Equipo', 'id': 'EQUIPO'},
+        {'name': 'Min Hist', 'id': 'MINUTOS', 'type': 'numeric'},
+        {'name': 'Goles Hist', 'id': 'GOLES', 'type': 'numeric'},
+        {'name': 'G/90 Hist', 'id': 'GOLES/90 HIST', 'type': 'numeric', 'format': {'specifier': '.2f'}},
+        {'name': 'Min Ult3', 'id': 'MINUTOS ULT 3', 'type': 'numeric'},
+        {'name': 'Goles Ult3', 'id': 'GOLES ULT 3', 'type': 'numeric'},
+        {'name': 'G/90 Ult3', 'id': 'GOLES/90 ULT 3', 'type': 'numeric', 'format': {'specifier': '.2f'}},
+        {'name': 'Min 2025', 'id': 'MINUTOS 2025', 'type': 'numeric'},
+        {'name': 'Goles 2025', 'id': 'GOLES 2025', 'type': 'numeric'},
+        {'name': 'G/90 2025', 'id': 'GOLES/90 2025', 'type': 'numeric', 'format': {'specifier': '.2f'}}
+    ],
+    data=df.to_dict('records'),
+    filter_action='none',
+    sort_action='native',
+    sort_mode='multi',
+    page_action='native',
+    page_size=20,
+    style_header={
+        'backgroundColor': '#2c3e50',
+        'color': 'white',
+        'fontWeight': 'bold',
+        'fontFamily': 'Roboto, sans-serif',
+        'textAlign': 'center',
+        'border': 'none',
+        'padding': '10px',
+        'whiteSpace': 'normal',
+        'height': 'auto'
+    },
+    style_table={
+        'minWidth': '100%',
+        'overflowX': 'auto',
+        'borderRadius': '8px',
+        'boxShadow': '0 4px 12px rgba(0, 0, 0, 0.1)',
+        'border': '1px solid #e0e0e0',
+        'fontFamily': 'Roboto, sans-serif'
+    },
+    style_data={
+        'borderBottom': '1px solid #e0e0e0',
+        'textAlign': 'center',
+        'padding': '8px',
+        'whiteSpace': 'normal',
+        'height': 'auto'
+    },
+    style_data_conditional=[
+        # Colorear filas por posición
+        *[
+            {
+                'if': {'column_id': 'POS', 'filter_query': f'{{POS}} = "{pos}"'},
+                'backgroundColor': color,
+                'color': '#333333',
+                'fontWeight': '500'
+            } for pos, color in position_colors.items()
+        ],
+        # Colorear celdas de Goles/90
+        *[
+            {
+                'if': {'column_id': col, 'filter_query': f'{{{col}}} <= 0.1'},
+                'backgroundColor': '#f0f9e8'
+            } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
+        ],
+        *[
+            {
+                'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.1 && {{{col}}} <= 0.2'},
+                'backgroundColor': '#ccebc5'
+            } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
+        ],
+        *[
+            {
+                'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.2 && {{{col}}} <= 0.3'},
+                'backgroundColor': '#a8ddb5'
+            } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
+        ],
+        *[
+            {
+                'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.3 && {{{col}}} <= 0.5'},
+                'backgroundColor': '#7bccc4'
+            } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
+        ],
+        *[
+            {
+                'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.5 && {{{col}}} <= 0.7'},
+                'backgroundColor': '#43a2ca'
+            } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
+        ],
+        *[
+            {
+                'if': {'column_id': col, 'filter_query': f'{{{col}}} > 0.7'},
+                'backgroundColor': '#0868ac',
+                'color': 'white'
+            } for col in ["GOLES/90 2025", "GOLES/90 HIST", "GOLES/90 ULT 3"]
+        ]
+    ],
+    style_cell={
+        'minWidth': '60px',
+        'width': '80px',
+        'maxWidth': '150px',
+        'overflow': 'hidden',
+        'textOverflow': 'ellipsis',
+        'fontSize': '0.8rem'
+    },
+    style_as_list_view=True
+    # Se han eliminado tooltip_data y tooltip_duration
+)
     ], style=styles['table-container']),
     
     html.Div([
