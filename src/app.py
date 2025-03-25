@@ -5,7 +5,7 @@ import flask
 from dash.dependencies import Input, Output
 
 # Cargar datos
-file_path = 'src/GRANDT_FINAL.csv'
+file_path = 'GRANDT_FINAL.csv'
 df = pd.read_csv(file_path)
 
 # Convertir columnas numéricas
